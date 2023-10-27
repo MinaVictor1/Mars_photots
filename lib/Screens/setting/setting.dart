@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../utils/bottomnavbar.dart';
 import 'widgets/settingbody.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

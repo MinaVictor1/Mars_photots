@@ -30,23 +30,21 @@ class API {
     _baseUrl =
         'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos';
   }
-  Future<List<Map<String, dynamic>>> fetchPhotos(DateTime earthDate) async {
+  Future<List<dynamic>> fetchPhotos(String earthDate) async {
     try {
-      var response = await dio.request(
+      Response response = await dio.request(
         _baseUrl,
         options: Options(
           method: "get",
           //headers: as token if there is an auth
         ),
-        queryParameters: {"earth_date": '2022-02-01', "api_key": _apiKey},
+        queryParameters: {
+          "earth_date": earthDate,
+          "api_key": _apiKey,
+        },
       );
       debugPrint(response.statusCode.toString());
-      debugPrint(earthDate.toString());
-      debugPrint(response.data.toString());
-      final List<dynamic> rawData = response.data['photos'];
-      List<Map<String, dynamic>> marsPhotos =
-          rawData.cast<Map<String, dynamic>>();
-      return marsPhotos;
+      return response.data['photos'];
     } catch (e) {
       if (e is DioException) {
         debugPrint(e.message);
