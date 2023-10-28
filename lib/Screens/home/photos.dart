@@ -4,7 +4,8 @@ import 'package:basicapp/data/repo/repo.dart';
 import 'package:flutter/material.dart';
 
 class PhotosPage extends StatefulWidget {
-  const PhotosPage({super.key});
+  const PhotosPage({super.key, required this.dateTime});
+  final DateTime dateTime;
 
   @override
   State<PhotosPage> createState() => _PhotosPageState();
@@ -20,8 +21,7 @@ class _PhotosPageState extends State<PhotosPage> {
 
   Future<void> loadPhotos() async {
     try {
-      List<MarsPhoto> fetchedPhotos =
-          await Repo().fetchPhotos(DateTime(2022, 2, 3));
+      List<MarsPhoto> fetchedPhotos = await Repo().fetchPhotos(widget.dateTime);
       setState(() {
         photos = fetchedPhotos;
       });

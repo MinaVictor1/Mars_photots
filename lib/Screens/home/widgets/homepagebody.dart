@@ -30,7 +30,17 @@ class _MyHomePageState extends State<HomePageBody> {
                 var formattedDate = DateFormat('d-MMM-yy').format(selectedDate);
                 DateTime dateTime = DateFormat("d-MMM-yy").parse(formattedDate);
                 formattedDate = DateFormat("dd-MM-yyyy").format(dateTime);
-                GoRouter.of(context).push(Approute.kPhotos);
+                List<String> parts = formattedDate.split('-');
+                int day = int.parse(parts[0]);
+                int month = int.parse(parts[1]);
+                int year = int.parse(parts[2]);
+                dateTime = DateTime(year, month, day);
+                DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
+                // Format the DateTime object to a string with just the date part
+                formattedDate = dateFormat.format(dateTime);
+                DateTime time = DateTime.parse(formattedDate);
+                GoRouter.of(context).push(Approute.kPhotos, extra: time);
               });
             }
           });

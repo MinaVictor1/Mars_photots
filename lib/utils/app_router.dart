@@ -19,7 +19,8 @@ abstract class Approute {
       ),
       GoRoute(
         path: kPhotos,
-        builder: (context, state) => const PhotosPage(),
+        builder: (context, state) =>
+            PhotosPage(dateTime: state.extra as DateTime),
       ),
     ],
   );
