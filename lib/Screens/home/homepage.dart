@@ -1,6 +1,3 @@
-import 'package:basicapp/data/Api/api.dart';
-import 'package:basicapp/data/model/mars_photo/mars_photo.dart';
-import 'package:basicapp/data/repo/repo.dart';
 import 'package:flutter/material.dart';
 import '../setting/widgets/drawer.dart';
 import 'widgets/homepagebody.dart';
@@ -11,7 +8,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final api = API();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -19,14 +15,6 @@ class HomePage extends StatelessWidget {
         ),
         endDrawer: const DrawerPage(),
         body: const HomePageBody(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            List<MarsPhoto> photos =
-                await Repo().fetchPhotos(DateTime(2023, 9, 26));
-            debugPrint(photos.length.toString());
-          },
-          child: const Icon(Icons.abc),
-        ),
       ),
     );
   }

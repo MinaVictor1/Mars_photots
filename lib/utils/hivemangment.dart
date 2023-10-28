@@ -18,7 +18,6 @@ class HiveManagment {
 
   static void storeMarsPhotos(List<MarsPhoto> marsPhotos) {
     for (MarsPhoto photo in marsPhotos) {
-      debugPrint(photo.id.toString());
       Hive.box<MarsPhoto>(photosBox).put(photo.id, photo);
     }
   }
@@ -26,8 +25,7 @@ class HiveManagment {
   static List<MarsPhoto> getEarthDatePhotos(DateTime earthDate) {
     return Hive.box<MarsPhoto>(photosBox)
         .values
-        .where(
-            (element) => earthDate.toString() == element.earthDate.toString())
+        .where((element) => earthDate == element.earthDate)
         .toList();
   }
 }

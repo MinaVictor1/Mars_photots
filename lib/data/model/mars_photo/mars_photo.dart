@@ -18,8 +18,8 @@ class MarsPhoto {
   @JsonKey(name: 'img_src')
   final String? imgSrc;
   @HiveField(4)
-  @JsonKey(name: 'earth_date')
-  final String? earthDate;
+  @JsonKey(name: 'earth_date', fromJson: _fromDate)
+  final DateTime? earthDate;
   @HiveField(5)
   final Rover? rover;
 
@@ -34,4 +34,8 @@ class MarsPhoto {
 
   factory MarsPhoto.fromJson(Map<String, dynamic> json) =>
       _$MarsPhotoFromJson(json);
+
+  static DateTime _fromDate(String earthDate) {
+    return DateTime.parse(earthDate);
+  }
 }
