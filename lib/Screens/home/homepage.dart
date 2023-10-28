@@ -24,9 +24,6 @@ class HomePage extends StatelessWidget {
             List<MarsPhoto> photos =
                 await Repo().fetchPhotos(DateTime(2023, 9, 26));
             debugPrint(photos.length.toString());
-            if (photos.isNotEmpty) {
-              debugPrint(photos[0].imgSrc);
-            }
           },
           child: const Icon(Icons.abc),
         ),

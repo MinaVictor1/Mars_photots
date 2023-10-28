@@ -17,8 +17,8 @@ class HiveManagment {
   }
 
   static void storeMarsPhotos(List<MarsPhoto> marsPhotos) {
-    debugPrint(marsPhotos[0].imgSrc);
     for (MarsPhoto photo in marsPhotos) {
+      debugPrint(photo.id.toString());
       Hive.box<MarsPhoto>(photosBox).put(photo.id, photo);
     }
   }
