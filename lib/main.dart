@@ -1,5 +1,7 @@
+import 'package:basicapp/utils/bloc_observer.dart';
 import 'package:basicapp/utils/hivemangment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'utils/app_router.dart';
 import 'utils/constant.dart';
@@ -11,6 +13,7 @@ import 'utils/theme/typography.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManagment.initHive();
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 

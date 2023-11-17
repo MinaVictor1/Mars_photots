@@ -11,24 +11,24 @@ class SettingBody extends StatelessWidget {
     Box settings = Hive.box(settingBox);
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(AppLocalizations.of(context)!.arabic),
-            ValueListenableBuilder(
-              valueListenable: Hive.box(settingBox).listenable(),
-              builder: (context, box, _) {
-                String language =
-                    settings.get(languageValue, defaultValue: "en");
-                return Switch(
-                  value: language == "en",
-                  onChanged: (val) =>
-                      settings.put(languageValue, val ? "en" : "ar"),
-                );
-              },
-            ),
-            Text(AppLocalizations.of(context)!.english),
-          ],
+        ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 30),
+          title: const Text("Language"),
+          trailing: DropdownButton(
+            value: settings.get(languageValue, defaultValue: "en"),
+            items: <String>["en", "ar"]
+                .map(
+                  (e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e == "ar" ? "Arabic" : "English"),
+                  ),
+                )
+                .toList(),
+            onChanged: (v) => settings.put(languageValue, v!),
+            focusColor: Colors.transparent,
+            underline: const SizedBox(),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

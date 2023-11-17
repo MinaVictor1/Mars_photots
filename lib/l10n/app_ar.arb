@@ -8,5 +8,6 @@
     "light": "فاتح",
     "dark": "داكن",
     "english" : "انجليزي",
-    "arabic" : "عربي"
+    "arabic" : "عربي",
+    "language" : "اللغه"
   }

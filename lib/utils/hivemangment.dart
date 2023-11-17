@@ -2,7 +2,6 @@ import 'package:basicapp/data/model/mars_photo/camera.dart';
 import 'package:basicapp/data/model/mars_photo/mars_photo.dart';
 import 'package:basicapp/data/model/mars_photo/rover.dart';
 import 'package:basicapp/utils/constant.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveManagment {

@@ -8,3 +8,11 @@ sealed class MarsState extends Equatable {
 }
 
 final class MarsInitial extends MarsState {}
+
+final class MarsLoadding extends MarsState {}
+
+final class MarsLoaded extends MarsState {}
+
+final class SelectedDateChanged extends MarsState {}
+
+final class SelectedDateIsNull extends MarsState {}

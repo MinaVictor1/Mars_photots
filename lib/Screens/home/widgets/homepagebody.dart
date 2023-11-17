@@ -1,51 +1,41 @@
-import 'package:basicapp/utils/app_router.dart';
+import 'package:basicapp/Screens/home/widgets/date.dart';
+import 'package:basicapp/Screens/home/widgets/photocard.dart';
+import 'package:basicapp/bloc/mars_photo/mars_cubit.dart';
+import 'package:basicapp/utils/theme/loadingwidgets.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePageBody extends StatefulWidget {
+class HomePageBody extends StatelessWidget {
   const HomePageBody({Key? key}) : super(key: key);
 
   @override
-  State<HomePageBody> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<HomePageBody> {
-  DateTime date = DateTime.now();
-  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: const Text('Choose Date'),
-        onPressed: () async {
-          await showDatePicker(
-            context: context,
-            initialDate: date,
-            firstDate: DateTime(2022),
-            lastDate: DateTime(2030),
-          ).then((selectedDate) {
-            if (selectedDate != null) {
-              setState(() {
-                date = selectedDate;
-                var formattedDate = DateFormat('d-MMM-yy').format(selectedDate);
-                DateTime dateTime = DateFormat("d-MMM-yy").parse(formattedDate);
-                formattedDate = DateFormat("dd-MM-yyyy").format(dateTime);
-                List<String> parts = formattedDate.split('-');
-                int day = int.parse(parts[0]);
-                int month = int.parse(parts[1]);
-                int year = int.parse(parts[2]);
-                dateTime = DateTime(year, month, day);
-                DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-
-                // Format the DateTime object to a string with just the date part
-                formattedDate = dateFormat.format(dateTime);
-                DateTime time = DateTime.parse(formattedDate);
-                GoRouter.of(context).push(Approute.kPhotos, extra: time);
-              });
-            }
-          });
-        },
-      ),
+    return BlocBuilder<MarsCubit, MarsState>(
+      builder: (context, state) {
+        MarsCubit cubit = MarsCubit.get(context);
+        return Column(
+          children: [
+            Date(cubit: cubit),
+            state is MarsLoadding
+                ? const Loadindwidget()
+                : cubit.photos.isNotEmpty
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemCount: cubit.photos.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return PhotoCard(marsPhoto: cubit.photos[index]);
+                          },
+                        ),
+                      )
+                    : const Expanded(
+                        child: Center(
+                          child: Text("There is no photos"),
+                        ),
+                      ),
+          ],
+        );
+      },
     );
   }
 }
